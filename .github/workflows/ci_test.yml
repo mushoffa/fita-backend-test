@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-binary:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code Repository

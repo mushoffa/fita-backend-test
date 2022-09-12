@@ -13,8 +13,8 @@ build-docker:
 
 test:
 	go test -coverpkg=./... -coverprofile=coverage/coverage.out ./... ;\
-	go tool cover -func=coverage/coverage.out ;\
-	go tool cover -html=coverage/coverage.out ;\
+	#go tool cover -func=coverage/coverage.out ;\
+	#go tool cover -html=coverage/coverage.out ;\
 
 run:
 	go run server.go
