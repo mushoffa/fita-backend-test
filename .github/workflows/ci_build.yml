@@ -1,0 +1,24 @@
+name: CI Build App
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-binary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v3
+      - name: Setup Go Executable Client
+        uses: actions/setup-go@v3
+      - name: Run Build Binary Command
+        run: make build-binary
+
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v3
+      - name: Run Build Docker Command
+        run: make build-docker
