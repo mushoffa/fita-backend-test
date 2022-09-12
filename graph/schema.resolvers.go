@@ -39,15 +39,14 @@ func (r *mutationResolver) Checkout(ctx context.Context, input *model.CheckoutRe
 	var freeProducts []*model.FreeItem
 
 	for _, cartItem := range cart.OrderItems {
-		promotion, err := r.Gateway.PromotionService.CheckPromotion(cartItem.Sku)
-
 		// Checkout product in cart, mutates product quantity in product stock
 		_, err = r.Gateway.ProductService.CheckoutProduct(cartItem.Sku, cartItem.Qty)
-
 		// Decline checkout process where order quantity is greater than product in stock
 		if err != nil {
 			return nil, err
 		}
+
+		promotion, err := r.Gateway.PromotionService.CheckPromotion(cartItem.Sku)
 
 		// Proceed when promotion is available in selected order item
 		if err == nil {
@@ -101,12 +100,13 @@ func (r *mutationResolver) Checkout(ctx context.Context, input *model.CheckoutRe
 		}
 	}
 
-	// Remove the card data when checkout is succeed
-	// Normally you want to save this data in database
-	r.Gateway.OrderService.DeleteCart(cart.UserID)
 	cart.FreeItems = freeProducts
 	cart.Discount = r.Gateway.OrderService.RoundOrderAmount(cart.Discount)
 	cart.GrandTotal = r.Gateway.OrderService.RoundOrderAmount(cart.TotalAmount - cart.Discount)
+
+	// Remove the card data when checkout is succeed
+	// Normally you want to save this data in database
+	r.Gateway.OrderService.DeleteCart(cart.UserID)
 
 	return &cart, nil
 }
