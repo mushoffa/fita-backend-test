@@ -17,5 +17,5 @@ jobs:
       - name: Archive Code Coverage Result
         uses: actions/upload-artifact@v3
         with:
-          name: unit-test-coverage-report
-          path: output/coverage/coverage.out
+          name: Code-Coverage-Report
+          path: coverage/coverage.out
