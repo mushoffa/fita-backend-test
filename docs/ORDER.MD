@@ -8,13 +8,13 @@ Add item to cart has four usecases
 4. Invalid product SKU or insufficient product quantity in stock
 
 ### Add Item to Existing Cart
-![](order/flow_add_cart_success.png)
+![](order/flow_add_cart_success.jpeg)
 
 ### Add Item to New Cart
-![](order/flow_add_cart_success_2.png)
+![](order/flow_add_cart_success_2.jpeg)
 
 ### Invalid User ID
-![](order/flow_add_cart_error_user_not_found.png)
+![](order/flow_add_cart_error_user_not_found.jpeg)
 
 ### Invalid Product or Insufficient Product Quantity
-![](order/flow_add_cart_error_invalid_product.png)
+![](order/flow_add_cart_error_invalid_product.jpeg)
