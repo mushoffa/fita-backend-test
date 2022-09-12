@@ -9,4 +9,5 @@ type CartRepository interface {
 	GetAllCarts() ([]*entity.Cart, error)
 	GetCartByUserID(string) (*entity.Cart, error)
 	UpdateCart(*entity.Cart) error
+	DeleteCart(string) error
 }

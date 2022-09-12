@@ -45,3 +45,8 @@ func (m *memory) Update(cart *entity.Cart) error {
 
 	return nil
 }
+
+func (m *memory) Delete(id string) error {
+	delete(m.data, id)
+	return nil
+}

@@ -14,9 +14,23 @@ type AddProductStock struct {
 }
 
 type Cart struct {
-	ID     string     `json:"id"`
-	UserID string     `json:"userID"`
-	Items  []*Product `json:"items"`
+	ID          string      `json:"ID"`
+	UserID      string      `json:"userID"`
+	OrderItems  []*Product  `json:"orderItems"`
+	FreeItems   []*FreeItem `json:"freeItems"`
+	TotalAmount float64     `json:"totalAmount"`
+	Discount    float64     `json:"discount"`
+	GrandTotal  float64     `json:"grandTotal"`
+}
+
+type CheckoutRequest struct {
+	UserID string `json:"userID"`
+}
+
+type FreeItem struct {
+	Sku  string `json:"sku"`
+	Name string `json:"name"`
+	Qty  int    `json:"qty"`
 }
 
 type NewProduct struct {
@@ -31,6 +45,17 @@ type Product struct {
 	Name  string  `json:"name"`
 	Price float64 `json:"price"`
 	Qty   int     `json:"qty"`
+}
+
+type Promotion struct {
+	ID          string  `json:"ID"`
+	Sku         string  `json:"sku"`
+	Type        string  `json:"type"`
+	Description string  `json:"description"`
+	MinQty      int     `json:"minQty"`
+	FreeProduct string  `json:"freeProduct"`
+	PriceOffset int     `json:"priceOffset"`
+	Discount    float64 `json:"discount"`
 }
 
 type User struct {

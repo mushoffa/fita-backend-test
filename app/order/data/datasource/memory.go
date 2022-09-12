@@ -9,4 +9,5 @@ type InMemory interface {
 	GetAll() ([]*entity.Cart, error)
 	GetByID(string) (*entity.Cart, error)
 	Update(*entity.Cart) error
+	Delete(string) error
 }

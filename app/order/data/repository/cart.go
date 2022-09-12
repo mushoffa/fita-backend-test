@@ -34,6 +34,10 @@ func (r *cart) AddCart(cart *entity.Cart) error {
 	r.Lock()
 	defer r.Unlock()
 
+	if err := r.memory.Add(cart); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -47,7 +51,7 @@ func (r *cart) GetAllCarts() ([]*entity.Cart, error) {
 }
 
 func (r *cart) GetCartByUserID(userID string) (*entity.Cart, error) {
-	return nil, nil
+	return r.memory.GetByID(userID)
 }
 
 func (r *cart) UpdateCart(cart *entity.Cart) error {
@@ -59,4 +63,8 @@ func (r *cart) UpdateCart(cart *entity.Cart) error {
 	}
 
 	return nil
+}
+
+func (r *cart) DeleteCart(userID string) error {
+	return r.memory.Delete(userID)
 }

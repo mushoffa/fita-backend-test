@@ -3,9 +3,19 @@
 # https://gqlgen.com/getting-started/
 
 type Cart {
-  id: String!
+  ID: String!
   userID: String!
-  items: [Product!]
+  orderItems: [Product!]
+  freeItems: [FreeItem!]
+  totalAmount: Float!
+  discount: Float!
+  grandTotal: Float!
+}
+
+type FreeItem {
+  sku: String!
+  name: String!
+  qty: Int!
 }
 
 type User {
@@ -18,6 +28,17 @@ type Product {
   name: String!
   price: Float!
   qty: Int!
+}
+
+type Promotion {
+  ID: String!
+  sku: String!
+  type: String!
+  description: String!
+  minQty: Int!
+  freeProduct: String!
+  priceOffset: Int!
+  discount: Float!
 }
 
 input NewProduct {
@@ -38,13 +59,20 @@ input AddCart {
   qty: Int!
 }
 
+input CheckoutRequest {
+  userID: String!
+}
+
 type Query {
+  carts: [Cart!]!
   products: [Product!]!
+  promotions: [Promotion!]!
   users: [User!]!
 }
 
 type Mutation {
+  checkout(input: CheckoutRequest): Cart!
   addCart(input: AddCart): Cart!
   addProductStock(input: AddProductStock): Product!
-  createProduct(input: NewProduct): Product!
+  #createProduct(input: NewProduct): Product!
 }

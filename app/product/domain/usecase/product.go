@@ -14,7 +14,8 @@ var (
 
 type ProductUsecase interface {
 	IncreaseProductQty(string, int) (entity.Product, error)
-	DecreaseProductQty(string, int) (entity.Product, error)
+	CheckProduct(string, int) (entity.Product, error)
+	CheckoutProduct(string, int) (entity.Product, error)
 	GetAllProducts() ([]entity.Product, error)
 }
 
@@ -33,7 +34,7 @@ func (u *product) IncreaseProductQty(sku string, qty int) (entity.Product, error
 
 	product, err := u.repository.GetProductBySKU(sku)
 	if err != nil {
-		return *product, err
+		return entity.Product{}, err
 	}
 
 	product.Qty += qty
@@ -45,7 +46,25 @@ func (u *product) IncreaseProductQty(sku string, qty int) (entity.Product, error
 	return *product, nil
 }
 
-func (u *product) DecreaseProductQty(sku string, qty int) (entity.Product, error) {
+func (u *product) CheckProduct(sku string, qty int) (entity.Product, error) {
+	if(qty <= 0) {
+		return entity.Product{}, ErrInvalidQuantity
+	}
+
+	product, err := u.repository.GetProductBySKU(sku)
+	if err != nil {
+		return entity.Product{}, err
+	}
+
+	if(product.Qty < qty) {
+		// return entity.Product{}, ErrInsufficientQuantity
+		return *product, ErrInsufficientQuantity
+	}
+
+	return *product, nil
+}
+
+func (u *product) CheckoutProduct(sku string, qty int) (entity.Product, error) {
 	if(qty <= 0) {
 		return entity.Product{}, ErrInvalidQuantity
 	}
@@ -57,7 +76,7 @@ func (u *product) DecreaseProductQty(sku string, qty int) (entity.Product, error
 
 	
 	if(product.Qty < qty) {
-		return *product, ErrInsufficientQuantity	
+		return *product, ErrInsufficientQuantity
 	}
 
 	product.Qty -= qty

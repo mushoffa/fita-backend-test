@@ -5,6 +5,6 @@ type Cart struct {
 	ID string
 	UserID string
 	Status string
-	Items []OrderItem
+	Items []*OrderItem
 	TotalAmount float64
 }

@@ -29,9 +29,12 @@ func NewUserRepository(memory datasource.InMemory) domain.UserRepository {
 
 func (r *user) initialize() {
 	users := []entity.User {
-		entity.User{"bac6dd0d-eaaf-43d6-9d09-da99a2b05f14", "UserA"},
-		entity.User{"f749e3d0-afde-4617-b9c7-16ccbc1a56c1", "UserB"},
-		entity.User{"acfdffb5-852e-4773-b3bf-7095db19dd06", "UserC"},
+		// entity.User{"bac6dd0d-eaaf-43d6-9d09-da99a2b05f14", "UserA"},
+		// entity.User{"f749e3d0-afde-4617-b9c7-16ccbc1a56c1", "UserB"},
+		// entity.User{"acfdffb5-852e-4773-b3bf-7095db19dd06", "UserC"},
+		entity.User{"bac6dd0d", "UserA"},
+		entity.User{"f749e3d0", "UserB"},
+		entity.User{"acfdffb5", "UserC"},
 	}
 
 	for _, user := range users {
